@@ -1,17 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-SPM hindcast modeling (cleaned & refactored, with diagnostics)
+SPM hindcast modeling
 --------------------------------------------------------------
-- Deterministic seeding
-- Robust I/O and daily resampling helpers
-- Time-aware interpolation
-- Missing-value and correlation diagnostics BEFORE dropping variables
-- Proper scikeras GridSearchCV with R^2 scoring
-- SHAP importance computed on a small sample (faster) with safe fallback
-- Plotting fixes and tidy layout
-- Replaced deprecated ._append with pd.concat
-- Avoids forcing a specific Matplotlib backend
 """
 
 from __future__ import annotations
@@ -189,7 +180,6 @@ meteo = as_time_indexed(meteo, "valid")
 meteo_daily = resample_daily_mean(meteo)
 
 # --- Waves (buoy) ---
-# waves = pd.read_csv(BASE / "insitu/waves/46088-Generic_Export-20250605T13T01_11.csv", low_memory=False)
 waves = pd.read_csv(BASE / "insitu/waves/46087-Generic_Export-20250611T12T12_35.csv", low_memory=False)
 waves["time"] = pd.to_datetime(waves["time"])
 waves = as_time_indexed(waves, "time")
